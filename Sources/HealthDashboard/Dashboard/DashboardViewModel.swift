@@ -10,8 +10,8 @@ final class DashboardViewModel: ObservableObject {
 
     private let healthKitManager: HealthKitManager
 
-    init(healthKitManager: HealthKitManager = .shared) {
-        self.healthKitManager = healthKitManager
+    init(healthKitManager: HealthKitManager? = nil) {
+        self.healthKitManager = healthKitManager ?? .shared
     }
 
     func refresh() async {
