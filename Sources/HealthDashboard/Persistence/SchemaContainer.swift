@@ -17,14 +17,15 @@ enum SchemaContainer {
         ])
     }
 
-    /// Phase A/B: CloudKit is disabled (`.none`) to de-risk the very first build.
-    /// Phase C flips this to `.automatic` once the iCloud capability has been
-    /// added in Xcode and the model shapes have proven stable locally.
+    /// CloudKit sync is enabled so logs/journal/goals/screenings survive the
+    /// periodic reinstalls required by free Apple ID signing. The container
+    /// identifier is derived from the iCloud capability configured in Xcode's
+    /// Signing & Capabilities tab (see README.md), not hardcoded here.
     static func makeContainer() -> ModelContainer {
         let configuration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: false,
-            cloudKitDatabase: .none
+            cloudKitDatabase: .automatic
         )
         do {
             return try ModelContainer(for: schema, configurations: [configuration])

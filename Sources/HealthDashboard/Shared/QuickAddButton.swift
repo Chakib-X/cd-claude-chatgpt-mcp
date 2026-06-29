@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct QuickAddButton: View {
     let title: String
@@ -7,7 +8,10 @@ struct QuickAddButton: View {
     let action: () -> Void
 
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            action()
+        }) {
             VStack(spacing: 6) {
                 Image(systemName: systemImage)
                     .font(.title2)

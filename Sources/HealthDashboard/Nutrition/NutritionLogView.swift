@@ -3,7 +3,7 @@ import SwiftData
 
 struct NutritionLogView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \FavoriteFood.sortOrder) private var favorites: [FavoriteFood]
+    @Query(sort: \FavoriteFood.useCount, order: .reverse) private var favorites: [FavoriteFood]
     @Query private var allEntries: [NutritionEntry]
 
     @State private var showingAddSheet = false
