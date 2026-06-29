@@ -19,7 +19,7 @@ struct NekoImportView: View {
         VStack(spacing: 16) {
             Image(systemName: "doc.text.viewfinder")
                 .font(.system(size: 40))
-                .foregroundStyle(.accent)
+                .foregroundStyle(.tint)
             Text("Import a Neko Health screening PDF. Text is extracted automatically, but you'll review and confirm every value before it's saved.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)

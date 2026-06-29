@@ -92,7 +92,7 @@ struct WeeklyTrendChartsView: View {
             let end = DateUtilities.endOfDay(day)
             let stepCount = (try? await HealthKitManager.shared.fetchStepCount(start: start, end: end)) ?? 0
             steps.append(DailyValue(day: day, value: stepCount))
-            if let hr = try? await HealthKitManager.shared.fetchAverageRestingHeartRate(start: start, end: end), let hr {
+            if let hr = try? await HealthKitManager.shared.fetchAverageRestingHeartRate(start: start, end: end) {
                 restingHeartRate.append(DailyValue(day: day, value: hr))
             }
         }

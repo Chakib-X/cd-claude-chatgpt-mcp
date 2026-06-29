@@ -85,7 +85,7 @@ private struct WeeklyGoalRow: View {
                 if goal.linkedBaselineMetricKey != nil {
                     Text("Linked to baseline")
                         .font(.caption2)
-                        .foregroundStyle(.accent)
+                        .foregroundStyle(.tint)
                 }
             }
         }

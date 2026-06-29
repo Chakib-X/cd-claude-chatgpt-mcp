@@ -26,7 +26,7 @@ struct TodaySummaryCard: View {
     private func metric(value: String, label: String, systemImage: String) -> some View {
         VStack(spacing: 4) {
             Image(systemName: systemImage)
-                .foregroundStyle(.accent)
+                .foregroundStyle(.tint)
             Text(value)
                 .font(.headline)
             Text(label)
