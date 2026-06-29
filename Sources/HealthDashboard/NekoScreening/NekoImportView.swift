@@ -3,9 +3,12 @@ import PDFKit
 import UniformTypeIdentifiers
 
 struct NekoImportView: View {
+    @Environment(\.dismiss) private var dismiss
+
     @State private var isImporterPresented = false
     @State private var reviewPayload: ReviewPayload?
     @State private var importError: String?
+    @State private var savedMetricCount: Int?
 
     private struct ReviewPayload: Identifiable {
         let id = UUID()
@@ -17,27 +20,42 @@ struct NekoImportView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Image(systemName: "doc.text.viewfinder")
-                .font(.system(size: 40))
-                .foregroundStyle(.tint)
-            Text("Import a Neko Health screening PDF. Text is extracted automatically, but you'll review and confirm every value before it's saved.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-            Text("Note: extraction only works on PDFs with selectable text, not scanned images. You can always add metrics manually on the next screen.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-
-            Button("Choose PDF") {
-                isImporterPresented = true
-            }
-            .buttonStyle(.borderedProminent)
-
-            if let importError {
-                Text(importError)
+            if let savedMetricCount {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.system(size: 40))
+                    .foregroundStyle(.green)
+                Text("Screening Saved")
+                    .font(.headline)
+                Text(savedMetricCount == 1 ? "1 metric recorded." : "\(savedMetricCount) metrics recorded.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                Button("Done") {
+                    dismiss()
+                }
+                .buttonStyle(.borderedProminent)
+            } else {
+                Image(systemName: "doc.text.viewfinder")
+                    .font(.system(size: 40))
+                    .foregroundStyle(.tint)
+                Text("Import a Neko Health screening PDF. Text is extracted automatically, but you'll review and confirm every value before it's saved.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                Text("Note: extraction only works on PDFs with selectable text, not scanned images. You can always add metrics manually on the next screen.")
                     .font(.caption)
-                    .foregroundStyle(.red)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+
+                Button("Choose PDF") {
+                    isImporterPresented = true
+                }
+                .buttonStyle(.borderedProminent)
+
+                if let importError {
+                    Text(importError)
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                }
             }
         }
         .padding()
@@ -50,7 +68,10 @@ struct NekoImportView: View {
                 sourceFileName: payload.sourceFileName,
                 pdfData: payload.pdfData,
                 rawExtractedText: payload.rawExtractedText,
-                candidates: payload.candidates
+                candidates: payload.candidates,
+                onSave: { metricCount in
+                    savedMetricCount = metricCount
+                }
             )
         }
     }

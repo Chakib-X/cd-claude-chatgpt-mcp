@@ -8,6 +8,7 @@ struct NekoReviewFormView: View {
     let sourceFileName: String
     let pdfData: Data
     let rawExtractedText: String
+    let onSave: (Int) -> Void
 
     @State private var screeningDate: Date
     @State private var candidates: [NekoMetricCandidate]
@@ -15,10 +16,11 @@ struct NekoReviewFormView: View {
     @State private var newMetricUnit: String = ""
     @State private var newMetricValue: String = ""
 
-    init(sourceFileName: String, pdfData: Data, rawExtractedText: String, candidates: [NekoMetricCandidate]) {
+    init(sourceFileName: String, pdfData: Data, rawExtractedText: String, candidates: [NekoMetricCandidate], onSave: @escaping (Int) -> Void = { _ in }) {
         self.sourceFileName = sourceFileName
         self.pdfData = pdfData
         self.rawExtractedText = rawExtractedText
+        self.onSave = onSave
         _screeningDate = State(initialValue: Date())
         _candidates = State(initialValue: candidates)
     }
@@ -114,6 +116,7 @@ struct NekoReviewFormView: View {
             modelContext.insert(metric)
         }
 
+        onSave(candidates.count)
         dismiss()
     }
 }
