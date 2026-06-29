@@ -17,15 +17,16 @@ enum SchemaContainer {
         ])
     }
 
-    /// CloudKit sync is enabled so logs/journal/goals/screenings survive the
-    /// periodic reinstalls required by free Apple ID signing. The container
-    /// identifier is derived from the iCloud capability configured in Xcode's
-    /// Signing & Capabilities tab (see README.md), not hardcoded here.
+    /// CloudKit sync is disabled: Apple restricts the iCloud/CloudKit capability
+    /// to paid Developer Program teams, and this app signs with a free personal
+    /// Apple ID. Data is local-only on each device and survives the periodic
+    /// re-sign/reinstall required by free signing, but does not sync across
+    /// devices or survive deleting the app.
     static func makeContainer() -> ModelContainer {
         let configuration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: false,
-            cloudKitDatabase: .automatic
+            cloudKitDatabase: .none
         )
         do {
             return try ModelContainer(for: schema, configurations: [configuration])

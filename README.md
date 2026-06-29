@@ -46,8 +46,9 @@ Xcode project on your Mac following the steps below.
    - Set **Team** to your personal account. `CODE_SIGN_STYLE` is already set to
      Automatic, so Xcode manages the provisioning profile.
    - Click **"+ Capability"** → add **HealthKit**.
-   - Click **"+ Capability"** → add **iCloud** → check **CloudKit**. Let Xcode
-     auto-create a container (it will be named `iCloud.<your-bundle-id>`).
+   - Do **not** add iCloud/CloudKit — Apple restricts that capability to paid
+     Developer Program teams, and a free personal Apple ID can't enable it
+     (Xcode will show an error if you try). This app stores data locally only.
 10. **Connect your iPhone** via USB (or wireless debugging on the same
     network), and trust the Mac on the phone if prompted.
 11. Select your iPhone as the run destination in Xcode's device dropdown.
@@ -66,11 +67,12 @@ will grey out and refuse to open. To keep using it:
 
 - Reconnect your iPhone to your Mac, open the project in Xcode, and press
   Cmd+R again. No code changes needed — it's just a re-sign and reinstall.
-- **Your data is not lost.** All logged data (nutrition, hydration, alcohol,
-  supplements, journal, goals, Neko screenings) is stored via SwiftData with
-  CloudKit sync, so it survives reinstalls as long as you're signed into the
-  same iCloud account on the device. Make sure iCloud (Settings → [your name])
-  is signed in before first launch so the initial CloudKit sync can happen.
+- **Your data is not lost** as long as you don't delete the app. Xcode's
+  Cmd+R re-signs and reinstalls in place over the existing app (same bundle
+  ID, same device), which preserves its local SwiftData store. Data is
+  local-only on this device — it won't sync to other devices or survive
+  deleting the app, since CloudKit sync requires a paid Apple Developer
+  Program account (see note above).
 
 ## What's in the app
 
