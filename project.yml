@@ -1,0 +1,33 @@
+name: HealthDashboard
+options:
+  bundleIdPrefix: com.example.healthdashboard
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+targets:
+  HealthDashboard:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Sources/HealthDashboard
+    resources:
+      - path: Resources/HealthDashboard/Assets.xcassets
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.healthdashboard
+        INFOPLIST_FILE: Resources/HealthDashboard/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Resources/HealthDashboard/HealthDashboard.entitlements
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: ""
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+schemes:
+  HealthDashboard:
+    build:
+      targets:
+        HealthDashboard: all
+    run:
+      config: Debug

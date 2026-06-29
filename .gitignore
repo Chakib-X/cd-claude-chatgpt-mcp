@@ -1,0 +1,17 @@
+# Xcode / Swift
+*.xcodeproj
+*.xcworkspace
+DerivedData/
+.build/
+*.xcuserstate
+*.xcuserdatad/
+xcuserdata/
+.swiftpm/
+*.moved-aside
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# macOS
+.DS_Store
